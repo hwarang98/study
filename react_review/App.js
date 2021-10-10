@@ -61,7 +61,7 @@ class App extends Component{
     else if(this.state.mode === 'update'){
       let _content = this.getReadContent();
       _article = <Update data={_content} onSubmit={(_title, _desc)=>{
-        // Todo: add content to this.state.contents
+        //  Todo: add content to this.state.contents
         this.max_content_id++
         // this.state.contents.push({id:this.max_content_id, title:_title, desc:_desc}); // 오리지널 데이터인 스테이트를 바꾼다.
         let _contents = this.state.contents.concat({id:this.max_content_id, title:_title, desc:_desc}) // 원본 배열을 건들지 않는다.
