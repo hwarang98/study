@@ -4,6 +4,7 @@ import ReadArticle from "./components/ReadArticle" // Article.js파일을 불러
 import Subject from "./components/Subject" // Subject.js파일을 불러옴
 import Control from "./components/Control" // Subject.js파일을 불러옴
 import CreateArticle from "./components/CreateArticle" // Subject.js파일을 불러옴
+import Update from "./components/Update" // Subject.js파일을 불러옴
 import './App.css';
 
 class App extends Component{ 
@@ -12,8 +13,9 @@ class App extends Component{
   constructor(props){
     super(props);
     // TODO: 컴포넌트가 실행될때 constructor라는 함수가있다면 제일먼저 실행되고 초기화를 담당한다.
+    this.max_content_id = 4;
     this.state = {
-      mode:"read",
+      mode:"create",
       selected_content_id: 2,
       subject:{title: "WEB", sub: "world wide web!"},
       welcome: {title: "Welcome", desc: "Hello, React!"},
@@ -26,28 +28,50 @@ class App extends Component{
     }
   }
   // **state**
-
-  render() {
+  getReadContent(){
+    for(let i = 0; i < this.state.contents.length; i++){
+      let data = this.state.contents[i];
+      if(data.id === this.state.selected_content_id){
+      return data;
+      }
+    }
+  }
+  getContent(){
     let _title, _desc, _article = null;
-
+    
     if(this.state.mode === 'welcome'){
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
       _article = <ReadArticle title={_title} desc={_desc}></ReadArticle>
     }
-    else if(this.state.mode === 'create'){
-      _article = <CreateArticle/>
-    }
     else if(this.state.mode === 'read'){
-      for(let i = 0; i < this.state.contents.length; i++){
-        let data = this.state.contents[i];
-        if(data.id === this.state.selected_content_id){
-          _title = data.title;
-          _desc = data.desc;
-        }
-      }
-      _article = <ReadArticle title={_title} desc={_desc}></ReadArticle>
+        let _content = this.getReadContent();
+        _article = <ReadArticle title={_content.title} desc={_content.desc}></ReadArticle>
     }
+    else if(this.state.mode === 'create'){
+      _article = <CreateArticle onSubmit={(_title, _desc)=>{
+        // Todo: add content to this.state.contents
+        this.max_content_id++
+        // this.state.contents.push({id:this.max_content_id, title:_title, desc:_desc}); // 오리지널 데이터인 스테이트를 바꾼다.
+        let _contents = this.state.contents.concat({id:this.max_content_id, title:_title, desc:_desc}) // 원본 배열을 건들지 않는다.
+        this.setState({contents: _contents});
+        console.log(_title, _desc)
+      }}/>
+    }
+    else if(this.state.mode === 'update'){
+      let _content = this.getReadContent();
+      _article = <Update data={_content} onSubmit={(_title, _desc)=>{
+        // Todo: add content to this.state.contents
+        this.max_content_id++
+        // this.state.contents.push({id:this.max_content_id, title:_title, desc:_desc}); // 오리지널 데이터인 스테이트를 바꾼다.
+        let _contents = this.state.contents.concat({id:this.max_content_id, title:_title, desc:_desc}) // 원본 배열을 건들지 않는다.
+        this.setState({contents: _contents});
+        console.log(_title, _desc)
+      }}/>
+    }
+    return _article;
+  } // 복잡한 아래의 코드를 새로운 함수로 분리
+  render() {
     return(
       // !!컴포넌트를 만들때에는 반드시 하나의 최상위 태그로 시작해야하며 존재해야한다.<div>
       <div className="App">
@@ -89,7 +113,7 @@ class App extends Component{
             mode:_mode
           })
         }}/>
-        {_article}
+        {this.getContent()}
       </div>
     )
   }
