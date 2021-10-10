@@ -1,7 +1,9 @@
 import{ Component } from 'react';
 import Page from "./components/Page" // Page.js파일을 불러옴
-import Article from "./components/Article" // Article.js파일을 불러옴
+import ReadArticle from "./components/ReadArticle" // Article.js파일을 불러옴
 import Subject from "./components/Subject" // Subject.js파일을 불러옴
+import Control from "./components/Control" // Subject.js파일을 불러옴
+import CreateArticle from "./components/CreateArticle" // Subject.js파일을 불러옴
 import './App.css';
 
 class App extends Component{ 
@@ -26,10 +28,15 @@ class App extends Component{
   // **state**
 
   render() {
-    let _title, _desc = null;
+    let _title, _desc, _article = null;
+
     if(this.state.mode === 'welcome'){
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
+      _article = <ReadArticle title={_title} desc={_desc}></ReadArticle>
+    }
+    else if(this.state.mode === 'create'){
+      _article = <CreateArticle/>
     }
     else if(this.state.mode === 'read'){
       for(let i = 0; i < this.state.contents.length; i++){
@@ -39,6 +46,7 @@ class App extends Component{
           _desc = data.desc;
         }
       }
+      _article = <ReadArticle title={_title} desc={_desc}></ReadArticle>
     }
     return(
       // !!컴포넌트를 만들때에는 반드시 하나의 최상위 태그로 시작해야하며 존재해야한다.<div>
@@ -76,7 +84,12 @@ class App extends Component{
           })
         }} 
         data={this.state.contents}></Page>
-        <Article title={_title} desc={_desc}></Article>
+        <Control onChangeMode = {(_mode) => {
+          this.setState({
+            mode:_mode
+          })
+        }}/>
+        {_article}
       </div>
     )
   }
