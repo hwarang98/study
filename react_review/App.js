@@ -11,7 +11,8 @@ class App extends Component{
     super(props);
     // TODO: 컴포넌트가 실행될때 constructor라는 함수가있다면 제일먼저 실행되고 초기화를 담당한다.
     this.state = {
-      mode:"welcome",
+      mode:"read",
+      selected_content_id: 2,
       subject:{title: "WEB", sub: "world wide web!"},
       welcome: {title: "Welcome", desc: "Hello, React!"},
       contents:[
@@ -31,8 +32,13 @@ class App extends Component{
       _desc = this.state.welcome.desc;
     }
     else if(this.state.mode === 'read'){
-      _title = this.state.contents[0].title;
-      _desc = this.state.contents[0].desc;
+      for(let i = 0; i < this.state.contents.length; i++){
+        let data = this.state.contents[i];
+        if(data.id === this.state.selected_content_id){
+          _title = data.title;
+          _desc = data.desc;
+        }
+      }
     }
     return(
       // !!컴포넌트를 만들때에는 반드시 하나의 최상위 태그로 시작해야하며 존재해야한다.<div>
@@ -61,7 +67,15 @@ class App extends Component{
         {this.state.subject.sub}
         </header> */}
         {/* key */}
-        <Page data={this.state.contents}></Page>
+        <Page 
+        onChangePage = {(id)=>{
+          alert('hi');
+          this.setState({
+            mode: 'read',
+            selected_content_id: Number(id)
+          })
+        }} 
+        data={this.state.contents}></Page>
         <Article title={_title} desc={_desc}></Article>
       </div>
     )
