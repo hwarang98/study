@@ -110,6 +110,18 @@ class App extends Component{
         }} 
         data={this.state.contents}></Page>
         <Control onChangeMode = {(_mode) => {
+          if(_mode === 'delete'){
+            if(window.confirm('really?')){
+              let _contents = Array.from(this.state.contents); 
+              for(let i = 0; i < this.state.contents.length; i ++){
+                if(_contents[i].id === this.state.selected_content_id){
+                  _contents.splice(i,1);
+                }
+              }
+              this.setState({mode:'welcome', contents: _contents});
+              alert('deleted complet!')
+            }
+          }
           this.setState({
             mode:_mode
           })
