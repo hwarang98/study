@@ -2,6 +2,17 @@ import React,{ Component } from 'react';
 
 
 class Update extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            title: this.props.data.title,
+            desc: this.props.data.desc
+        }
+        this.inpurFormHandler = this.inpurFormHandler.bind(this)
+    }
+    inpurFormHandler(e){
+        this.setState({[e.target.name]: e.target.value}) // 최신 JS문법인 [] 대괄호 문법 사용
+    }
     render() {
         console.log(this.props.data);
         console.log('Update render');
@@ -16,11 +27,13 @@ class Update extends Component{
                 this.props.onSubmit(e.target.title.value, e.target.desc.value);
             }}>
                 <p>
-                    <input type="text" name="title" placeholder="title"></input>
+                    <input type="text" name="title" placeholder="title" value={this.state.title}
+                        onChange = {this.inpurFormHandler}></input>
                 </p>
 
                 <p>
-                    <textarea name="desc" placeholder="description"></textarea>
+                    <textarea name="desc" placeholder="description" value={this.state.desc}
+                        onChange = {this.inpurFormHandler}></textarea>
                 </p>
 
                 {/* 전송버튼 */}
