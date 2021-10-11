@@ -5,6 +5,7 @@ class Update extends Component{
     constructor(props){
         super(props);
         this.state={
+            id: this.props.data.id,
             title: this.props.data.title,
             desc: this.props.data.desc
         }
@@ -24,8 +25,13 @@ class Update extends Component{
             약속되어있다 html의 form tag의 고유한 기능이다. */}
             <form action = "/create_process" method="post" onSubmit={(e)=>{
                 e.preventDefault();
-                this.props.onSubmit(e.target.title.value, e.target.desc.value);
+                this.props.onSubmit(
+                    this.state.id,
+                    this.state.title, 
+                    this.state.desc
+                    );
             }}>
+                <input type='hidden' name="id" value={this.state.id}></input> 
                 <p>
                     <input type="text" name="title" placeholder="title" value={this.state.title}
                         onChange = {this.inpurFormHandler}></input>
