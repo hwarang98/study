@@ -15,7 +15,7 @@ class App extends Component{
     // TODO: 컴포넌트가 실행될때 constructor라는 함수가있다면 제일먼저 실행되고 초기화를 담당한다.
     this.max_content_id = 4;
     this.state = {
-      mode:"create",
+      mode:"welcom",
       selected_content_id: 2,
       subject:{title: "WEB", sub: "world wide web!"},
       welcome: {title: "Welcome", desc: "Hello, React!"},
@@ -53,19 +53,22 @@ class App extends Component{
         // Todo: add content to this.state.contents
         this.max_content_id++
         // this.state.contents.push({id:this.max_content_id, title:_title, desc:_desc}); // 오리지널 데이터인 스테이트를 바꾼다.
-        let _contents = this.state.contents.concat({id:this.max_content_id, title:_title, desc:_desc}) // 원본 배열을 건들지 않는다.
-        this.setState({contents: _contents});
-        console.log(_title, _desc)
+        let _contents = Array.from(this.state.contents);
+        _contents.push({id:this.max_content_id, title:_title, desc:_desc})
+        this.setState({contents: _contents, mode: 'read', selected_content_id: this.max_content_id});
       }}/>
     }
     else if(this.state.mode === 'update'){
       let _content = this.getReadContent();
-      _article = <Update data={_content} onSubmit={(_title, _desc)=>{
+      _article = <Update data={_content} onSubmit={(_id,_title, _desc)=>{
         //  Todo: add content to this.state.contents
-        this.max_content_id++
-        // this.state.contents.push({id:this.max_content_id, title:_title, desc:_desc}); // 오리지널 데이터인 스테이트를 바꾼다.
-        let _contents = this.state.contents.concat({id:this.max_content_id, title:_title, desc:_desc}) // 원본 배열을 건들지 않는다.
-        this.setState({contents: _contents});
+        let _contents = Array.from(this.state.contents); // this.state.contents의 원본을 복사한 새로운 배열을 만들어줌
+        for(let i = 0; i < _contents.length; i++){
+          if(_contents[i].id === _id){
+            _contents[i] = {id: _id, title: _title, desc: _desc};
+          }
+        }
+        this.setState({contents: _contents, mode: 'read'});
         console.log(_title, _desc)
       }}/>
     }
@@ -83,7 +86,6 @@ class App extends Component{
           sub={this.state.subject.sub}
           onChangePage = {()=>{
             this.setState({mode:'welcome'})
-            alert("ㅎ2")
           }}
           >
         </Subject>
@@ -101,7 +103,6 @@ class App extends Component{
         {/* key */}
         <Page 
         onChangePage = {(id)=>{
-          alert('hi');
           this.setState({
             mode: 'read',
             selected_content_id: Number(id)
