@@ -26,7 +26,7 @@
 
 - **UDP** : 단반향으로 작동하는 훨씬 더 단순하고 빠르지만 신뢰성이 낮은 인터넷 프로토콜
 
-  ***
+***
 
 # API(Application Programming Interface)
 
