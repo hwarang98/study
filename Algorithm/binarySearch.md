@@ -48,14 +48,14 @@ const binarySearch = function (arr, target) {
   * `Math.floor(1.222 * 100) / 100` 의 값은 **1.22**가 된다.
   * 음수일경우 `Math.floor(-1.2)`, `Math.floor(-1.9)` 2를 반환한다.
 
-  
+     
 
 - `Math.ceil()` :   정수로 올림한다.
 
   - 소수점 자리수 구하는 방법은 `Math.floor()`과 동일하다.
   - 음수일경우 `Math.floor(-1.2)` ,  `Math.floor(-1.9)` 1을 반환한다.
 
-  
+     
 
 - `Math.round()` : 정수로 반올림한다.
 
