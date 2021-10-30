@@ -9,34 +9,48 @@ let app = http.createServer((request,response) => {
     
     if(pathname === '/'){
         if(queryData.id === undefined){
-            fs.readFile(`data/${queryData.id}`, 'utf8', (err, description) => {
+            fs.readdir('./data', (err, fileList) => {
                 var title = 'Welcome'
                 var description = 'Hello, Node.js';
+
+                let list = '<ul>'
+                for(let i = 0; i < fileList.length; i++){
+                    list = list + `<li><a href="/?id=${fileList[i]}">${fileList[i]}</a></li>`
+                }
+                list = list + '</ul>';
+
                 var template = `
                 <!doctype html>
                 <html>
                 <head>
-                    <title>WEB1 - ${title}</title>
-                    <meta charset="utf-8">
-                    </head>
-                    <body>
-                    <h1><a href="/">WEB</a></h1>
-                    <ol>
-                    <li><a href="/?id=HTML">HTML</a></li>
-                    <li><a href="/?id=CSS">CSS</a></li>
-                    <li><a href="/?id=JavaScript">JavaScript</a></li>
-                    </ol>
-                    <h2>${title}</h2>
-                    <p>${description}</p>
-                    </body>
-                    </html>
-                    `;
-                    response.writeHead(200);
-                    response.end(template);
-                });
+                <title>WEB1 - ${title}</title>
+                <meta charset="utf-8">
+                </head>
+                <body>
+                <h1><a href="/">WEB</a></h1>
+                ${list}
+                <h2>${title}</h2>
+                <p>${description}</p>
+                </body>
+                </html>
+                `;
+                response.writeHead(200);
+                response.end(template);
+                })
             }
             else{
                 fs.readFile(`data/${queryData.id}`, 'utf8', (err, description) => {
+                    fs.readdir('./data', (err, fileList) => {
+                        // var title = 'Welcome'
+                        // var description = 'Hello, Node.js';
+        
+                        let list = '<ul>'
+                        for(let i = 0; i < fileList.length; i++){
+                            list = list + `<li><a href="/?id=${fileList[i]}">${fileList[i]}</a></li>`
+                        }
+                        list = list + '</ul>';
+        
+        
                     var title = queryData.id
                     // console.log(description)
                     let template = `
@@ -48,11 +62,7 @@ let app = http.createServer((request,response) => {
                     </head>
                     <body>
                     <h1><a href="/">WEB</a></h1>
-                    <ol>
-                    <li><a href="/?id=HTML">HTML</a></li>
-                    <li><a href="/?id=CSS">CSS</a></li>
-                    <li><a href="/?id=JavaScript">JavaScript</a></li>
-                    </ol>
+                    ${list}
                     <h2>${title}</h2>
                     <p>${description}</p>
                     </body>
@@ -61,11 +71,12 @@ let app = http.createServer((request,response) => {
                     response.writeHead(200);
                     response.end(template); // 앞에서 작성한 코드를 무엇을 넣느냐에 따라 사용자에게 전송하는 데이터가 바뀐다./
                 });
-            }
+            });
         }
-        else{
-            response.writeHead(404);
-            response.end('Not found');
-        }
-    });
-    app.listen(3000);
+    }
+    else{
+        response.writeHead(404);
+        response.end('Not found');
+    }
+});
+app.listen(3000);
