@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import AddNumber from './AddNumber';
 
-export default function AddNumberRoot(){
-    return(
-    <div>
-        <h1>Add Number Root</h1>
-        <AddNumber/>  
-    </div>
-    ) 
+export default class AddNumberRoot extends Component {
+    render(){
+        return(
+        <div>
+            <h1>Add Number Root</h1>
+            <AddNumber onClick={(size) => {
+                this.props.onClick(size)
+            }}/>  
+        </div>
+        ) 
+    }
 }

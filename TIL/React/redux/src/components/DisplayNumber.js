@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-
-export default function DisplayNumber() {
-    return (
-    <div>
-        <h1>Display Number</h1>
-        <input type="text" value="0" readOnly></input>
-    </div>
-    )
+export default class DisplayNumber extends Component {
+    render(){
+        return (
+        <div>
+            <h1>Display Number</h1>
+            <input type="text" value={this.props.number} readOnly></input>
+        </div>
+        )
+    }
 }
