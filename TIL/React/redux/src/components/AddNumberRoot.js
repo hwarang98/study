@@ -6,9 +6,7 @@ export default class AddNumberRoot extends Component {
         return(
         <div>
             <h1>Add Number Root</h1>
-            <AddNumber onClick={(size) => {
-                this.props.onClick(size)
-            }}/>  
+            <AddNumber />  
         </div>
         ) 
     }
