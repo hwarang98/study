@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import AddNumberRoot from './components/AddNumberRoot';
+import AddNumberRoot from './components/containers/AddNumber';
 import DisplayNumberRoot from './components/DisplayNumberRoot';
 
 
