@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import AddNumberRoot from './components/containers/AddNumber';
-import DisplayNumberRoot from './components/DisplayNumberRoot';
+import DisplayNumberRoot from './components/containers/DisplayNumberRoot';
 
 
 class App extends Component {
