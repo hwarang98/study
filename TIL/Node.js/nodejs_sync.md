@@ -22,6 +22,7 @@ console.log('c');
 // console 1 -> 'a'
 // console 2 -> 'c'
 // console 3 -> 'b'
+//
 ```
 
 - 동기적으로 처리한 코드는 첫번째 `console`이 실행되고 그 다음 `fs.readFileSync` 를 실핼하고 다음 `console`로 넘어간다.
