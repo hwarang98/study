@@ -1,5 +1,10 @@
-import React,{ Component } from 'react';
 import DisplayNumber from '../DisplayNumber';
+// import { connect } from 'react-redux';
+
+// export default connect()(DisplayNumber);
+
+
+import React,{ Component } from 'react';
 import store from '../../store';
 
 export default class extends Component{
@@ -13,7 +18,7 @@ export default class extends Component{
     render(){
         return(
         <div>
-            <DisplayNumber number={this.state.number}/>
+            <DisplayNumber number={this.state.number} unit={this.props.unit}/>
         </div>
         ) 
     }
