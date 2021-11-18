@@ -12,7 +12,11 @@ AJAX의 가장 큰 특징은 웹 페이지에 필요한 부분에 필요한 데�
 
 다음 사진은 구글 메인 화면이다 여기에서 유저의 요구에 따라 반응하는곳은 어디일까?
 
+![image-20211118142705180](/Users/hwarang/Library/Application Support/typora-user-images/image-20211118142705180.png)
+
 바로 검색창이다. 입력창에 어떠한 글자를 치게되면 서버에서 단어를 받아와 추천 검색어로 보여준다.
+
+![image-20211118142739989](/Users/hwarang/Library/Application Support/typora-user-images/image-20211118142739989.png)
 
 검색창에서는 필요한 데이터만 비동기적으로 받아와 렌더링되며, 여기에 AJAX가 사용된다.
 
@@ -39,7 +43,7 @@ AJAX의 가장 큰 특징은 웹 페이지에 필요한 부분에 필요한 데�
 - `Fetch` 이전에는 `XHR`(XMLHttpRequest)를 사용했었다.
 - `Fetch`는 `XHR`의 단점을 보완한 새로운 Web API이며, XML보다 가볍고 JavaScript와 호환되는 JSON을 사용합니다. 따라서 XHR보다 Fetch를 많이 사용한다.
 
-### 사용예제
+### Fetch 사용예제
 
 ```javascript
 // Fetch를 사용
@@ -50,6 +54,30 @@ fetch('<http://52.78.213.9:3000/messages>')
 	.then(function (json) {
 		...
 });
+```
+
+
+
+### XHR 사용예제
+
+```jsx
+ // XMLHttpRequest를 사용
+var xhr = new XMLHttpRequest();
+xhr.open('get', '<http://52.78.213.9:3000/messages>');
+
+xhr.onreadystatechange = function(){
+	if(xhr.readyState !== 4) return;
+	// readyState 4: 완료
+
+	if(xhr.status === 200) {
+        // status 200: 성공
+		console.log(xhr.responseText); // 서버로부터 온 응답
+	} else {
+		console.log('에러: ' + xhr.status); // 요청 도중 에러 발생
+	}
+}
+
+xhr.send(); // 요청 전송
 ```
 
 ---
