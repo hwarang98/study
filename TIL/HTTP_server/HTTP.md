@@ -18,7 +18,7 @@
 - 요청(Requests)
 - 응답(Responses)
 
-**요청(Requests)**과 **응답(Responses)**은 다음과 같은 유사한 구조를 가집니다.
+**요청(Requests)** 과 **응답(Responses)** 은 다음과 같은 유사한 구조를 가진다.
 
 1. **start line** : start line에는 요청이나 응답의 상태를 나타낸다. 항상 첫 번째 줄에 위치하고, 응답에서는 **status line**이라고 부른다
 2. **HTTP headers** : 요청을 지정하거나, 메시지에 포함된 본문을 설명하는 헤더의 집합이다.
