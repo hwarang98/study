@@ -269,3 +269,5 @@ getData().then(function(result) {
 ![image-20211116231658491](/Users/hwarang/Library/Application Support/typora-user-images/image-20211116231658491.png)
 
 *더 많은 예외 처리 상황을 위해 `catch()` 를 사용하자.
+
+.
